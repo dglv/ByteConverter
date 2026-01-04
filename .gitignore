@@ -1,0 +1,49 @@
+# Byte-code files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+.eggs/
+
+# Distribution / build
+dist/
+build/
+wheels/
+share/man/
+lib/
+include/
+bin/
+var/
+
+# Virtual environment
+# Ignore the environment folder itself, but not the activate script
+venv/
+env/
+.venv/
+venv/.env/
+
+# IDE specific files
+# VS Code
+.vscode/
+# PyCharm
+.idea/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+
+# Editor backup files
+*~
+*.swp
+.DS_Store
+
+# Secrets and sensitive data
+# It's good practice to keep these out of version control
+venv/.env
+.flaskenv
+secrets.toml
+debug.log
+
+# Jupyter Notebook specific files
+.ipynb_checkpoints
