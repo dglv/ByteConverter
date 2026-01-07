@@ -39,14 +39,19 @@ def process_bytes(converter, args):
     if not bytes_list:
         raise ValueError("Missing bytes for converting")
 
-    result = converter.convert_bytes(bytes_list, args.endian, args.format)
+    if args.mode == '2bytes':
+        result = converter.convert_bytes_to_bytes(bytes_list, args.format)
+    elif args.mode == '2number':
+        result = converter.convert_bytes_to_number(bytes_list, args.endian, args.format)
+    else:
+        raise ValueError(f"Not supported convertion mode: {args.mode}")
 
     if args.verbose:
         print(f"Input bytes: {bytes_list}")
         print(f"Input order of bytes: {args.endian}-endian")
         print(f"Output format: {args.format}")
 
-    print(f"Result: {result}")
+    print(f"{result}")
 
 
 def main():
@@ -57,8 +62,9 @@ def main():
 Examples of usage:
 $ python byte_converter.py --endian little --format hex -12, 54, 55, 14
 $ python byte_converter.py --file bytes.txt --endian big --format dec
-$ python byte_converter.py 0xFA 0x12 0x1A 0x31 --endian big --format bin
+$ python byte_converter.py 0xFA 0x12 0x1A 0x31 --endian big --format bin --mode 2bytes
 $ echo "-12, 0, 55, 55" | python byte_converter.py --stdin -endian little
+$ python byte_converter.py 0xFA 0x12 0x1A --format bin --mode 2bytes | python byte_converter.py --stdin --format dec
 """
     )
 
@@ -88,7 +94,7 @@ $ echo "-12, 0, 55, 55" | python byte_converter.py --stdin -endian little
         type=str,
         choices=['big', 'little'],
         default='big',
-        help='Order of bytes (little-endian or big-endian)'
+        help='Order of bytes (little-endian or big-endian). Default: big'
     )
 
     parser.add_argument(
@@ -96,7 +102,16 @@ $ echo "-12, 0, 55, 55" | python byte_converter.py --stdin -endian little
         type=str,
         choices=['dec', 'hex', 'bin', 'oct'],
         default='dec',
-        help='Output format (dec, hex, bin, oct)'
+        help='Output format (dec, hex, bin, oct). Default: dec'
+    )
+
+    parser.add_argument(
+        '--mode',
+        type=str,
+        choices=['2bytes', '2number'],
+        default='2bytes',
+        help='Convert bytes to bytes in desired format (2bytes) or bytes to a single number in the format (2number). '
+             'Default: 2bytes'
     )
 
     parser.add_argument(

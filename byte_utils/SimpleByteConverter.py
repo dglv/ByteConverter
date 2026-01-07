@@ -37,10 +37,30 @@ class SimpleByteConverter:
     def _is_base_16(self, input_str: str) -> bool:
         return input_str.lower().startswith('0x')
 
-    def convert_bytes(self,
-                      bytes_list: List[int],
-                      endian: str = 'big',
-                      output_format: str = 'dec') -> str:
+    def convert_bytes_to_bytes(self,
+                               bytes_list: List[int],
+                               output_format: str = 'dec') -> str:
+        """
+        Converts list of input bytes to bytes in desired format
+
+        :param bytes_list: List of input bytes
+        :param output_format: 'dec', 'hex', 'bin' or 'oct'
+        :return: Result array of bytes as a formatted string
+        """
+        # Convert bytes to unsigned format
+        unsigned_bytes = [b & 0xFF for b in bytes_list]
+
+        formatter = self.formats.get(output_format, self._format_decimal)
+        results = []
+        for byte in unsigned_bytes:
+            results.append(formatter(byte))
+
+        return ", ".join(results)
+
+    def convert_bytes_to_number(self,
+                                bytes_list: List[int],
+                                endian: str = 'big',
+                                output_format: str = 'dec') -> str:
         """
         Converts list of input bytes to number regarding byte order
 
