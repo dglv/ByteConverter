@@ -116,7 +116,7 @@ class SimpleByteConverter:
                     base = BASE_10
 
                 try:
-                    value = int(part, base) if base != BASE_10 else int(part)
+                    value = int(part, base)
                     results.append(value)
                 except ValueError as e:
                     raise ValueError(f"Illegal value: {part}") from e

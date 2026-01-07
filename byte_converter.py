@@ -39,6 +39,10 @@ def process_bytes(converter, args):
     if not bytes_list:
         raise ValueError("Missing bytes for converting")
 
+    for byte in bytes_list:
+        if byte < -128 or byte > 255:
+            raise ValueError(f"Value {byte} is out of range for bytes [-128, 255]")
+
     if args.mode == '2bytes':
         result = converter.convert_bytes_to_bytes(bytes_list, args.format)
     elif args.mode == '2number':
