@@ -6,6 +6,7 @@ Byte converter
 import argparse
 import sys
 
+from convert_utils import Constants
 from convert_utils.SimpleByteConverter import SimpleByteConverter
 
 
@@ -43,12 +44,7 @@ def process_bytes(converter, args):
         if byte < -128 or byte > 255:
             raise ValueError(f"Value {byte} is out of range for bytes [-128, 255]")
 
-    if args.mode == '2bytes':
-        result = converter.convert_bytes_to_bytes(bytes_list, args.format)
-    elif args.mode == '2number':
-        result = converter.convert_bytes_to_number(bytes_list, args.endian, args.format)
-    else:
-        raise ValueError(f"Not supported convertion mode: {args.mode}")
+    result = converter.convert(args.mode, bytes_list, args.endian, args.format)
 
     if args.verbose:
         print(f"Input bytes: {bytes_list}")
