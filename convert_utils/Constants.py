@@ -1,0 +1,4 @@
+BASE_2 = 2
+BASE_8 = 8
+BASE_10 = 10
+BASE_16 = 16

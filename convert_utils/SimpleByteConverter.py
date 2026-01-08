@@ -1,9 +1,6 @@
 from typing import List
 
-BASE_2 = 2
-BASE_8 = 8
-BASE_10 = 10
-BASE_16 = 16
+from convert_utils import Constants
 
 
 class SimpleByteConverter:
@@ -107,13 +104,13 @@ class SimpleByteConverter:
             part = part.strip()
             if part:  # skip empty strings
                 if self._is_base_16(part):
-                    base = BASE_16
+                    base = Constants.BASE_16
                 elif self._is_base_2(part):
-                    base = BASE_2
+                    base = Constants.BASE_2
                 elif self._is_base_8(part):
-                    base = BASE_8
+                    base = Constants.BASE_8
                 else:
-                    base = BASE_10
+                    base = Constants.BASE_10
 
                 try:
                     value = int(part, base)

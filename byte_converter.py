@@ -6,7 +6,7 @@ Byte converter
 import argparse
 import sys
 
-from byte_utils.SimpleByteConverter import SimpleByteConverter
+from convert_utils.SimpleByteConverter import SimpleByteConverter
 
 
 def read_from_file(filepath: str) -> str:
