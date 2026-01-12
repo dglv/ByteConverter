@@ -60,11 +60,11 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples of usage:
-$ python byte_converter.py --endian little --format hex -12, 54, 55, 14
-$ python byte_converter.py --file bytes.txt --endian big --format dec
-$ python byte_converter.py 0xFA 0x12 0x1A 0x31 --endian big --format bin --mode 2bytes
-$ echo "-12, 0, 55, 55" | python byte_converter.py --stdin -endian little
-$ python byte_converter.py 0xFA 0x12 0x1A --format bin --mode 2bytes | python byte_converter.py --stdin --format dec
+$ python3 byte_converter.py --endian little --format hex "-12, 54, 55, 14"
+$ python3 byte_converter.py --file ~/Downloads/bytes.txt --endian big --format bin
+$ python3 byte_converter.py 0xFA 0x12 0x1A 0x31 --endian big --format bin --mode 2bytes
+$ echo "-12, 0, 55, 55" | python3 byte_converter.py --stdin --endian little
+$ python3 byte_converter.py 0xFA 0x12 0x1A --format bin --mode 2bytes | python byte_converter.py --stdin --format dec
 """
     )
 
@@ -73,6 +73,7 @@ $ python byte_converter.py 0xFA 0x12 0x1A --format bin --mode 2bytes | python by
     input_group.add_argument(
         'bytes',
         nargs='*',
+        default=[],
         help='Bytes for processing by convertor (example: -1, 45, 11, -127)'
     )
 
@@ -111,7 +112,7 @@ $ python byte_converter.py 0xFA 0x12 0x1A --format bin --mode 2bytes | python by
         choices=['2bytes', '2number'],
         default='2bytes',
         help='Convert bytes to bytes in desired format (2bytes) or bytes to a single number in the format (2number). '
-             'Default: 2bytes'
+             'Default: 2number'
     )
 
     parser.add_argument(

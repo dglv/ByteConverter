@@ -19,7 +19,7 @@ class SimpleByteConverter:
                 endian: str,
                 output_format: str) -> str:
         if mode == Constants.MODE_2BYTES:
-            result = self._convert_bytes_to_bytes(bytes_list, output_format)
+            result = self._convert_bytes_to_bytes(bytes_list, endian, output_format)
         elif mode == Constants.MODE_2NUMBER:
             result = self._convert_bytes_to_number(bytes_list, endian, output_format)
         else:
@@ -86,6 +86,7 @@ class SimpleByteConverter:
 
     def _convert_bytes_to_bytes(self,
                                 bytes_list: List[int],
+                                endian: str,
                                 output_format: str) -> str:
         """
         Converts list of input bytes to bytes in desired format
@@ -101,6 +102,13 @@ class SimpleByteConverter:
         results = []
         for byte in unsigned_bytes:
             results.append(formatter(byte))
+
+        if endian == Constants.ENDIAN_LITTLE:
+            results.reverse()
+        elif endian == Constants.ENDIAN_BIG:
+            results = results
+        else:
+            raise ValueError(f"Not supported endian bytes order: {endian}")
 
         return ", ".join(results)
 
