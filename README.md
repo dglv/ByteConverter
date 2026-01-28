@@ -13,3 +13,13 @@ Byte converter written on Python
 (venv)> deactivate
 ```
 
+### Linux:
+```bash
+# Activate environment
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+(.venv)$ pip install -r requirements.txt
+
+# Deactivate environment
+(.venv)$ deactivate
+```
